@@ -87,7 +87,6 @@
                 android:text="Location"
                 android:textSize="20sp"
                 android:paddingLeft="20dip"
-                android:paddingBottom="20dip"
                 android:fontFamily="sans-serif"
                 android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
@@ -120,9 +119,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="8dp"
+                android:padding="15dp"
                 android:text="Buy this Item"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
+                android:textSize="18sp"
                 android:background="@drawable/transparent_bg_bordered_button"
                 android:onClick="buyItem" />
 

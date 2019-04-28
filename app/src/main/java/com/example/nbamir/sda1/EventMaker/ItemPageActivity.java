@@ -2,19 +2,25 @@ package com.example.nbamir.sda1.EventMaker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.nbamir.sda1.CheckoutActivity;
 import com.example.nbamir.sda1.ItemBoard.ItemBoardSingleton;
 import com.example.nbamir.sda1.NavigationDrawer.NavigationDrawer;
 import com.example.nbamir.sda1.R;
+import com.example.nbamir.sda1.UserAccounts.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 
 public class ItemPageActivity extends NavigationDrawer {
 
@@ -26,8 +32,6 @@ public class ItemPageActivity extends NavigationDrawer {
     private TextView descriptionView; //-
     private ImageView imageView;
 
-    Calendar calendar1,calendar2;
-    DateFormat df;
     ItemBoardSingleton eventBoardSingleton;
 
     @Override
@@ -40,40 +44,50 @@ public class ItemPageActivity extends NavigationDrawer {
         String image = intent.getStringExtra("image");
         String name = intent.getStringExtra("name");
         String date = intent.getStringExtra("date");
-        long startTime = intent.getLongExtra("startTime",0);
-        long endTime = intent.getLongExtra("endTime",0);
+        String price = intent.getStringExtra("price");
         String category = intent.getStringExtra("category");
-        String time = intent.getStringExtra("time");
-        String heldBy = intent.getStringExtra("heldBy");
-        String poster = intent.getStringExtra("poster");
-        String venue = intent.getStringExtra("venue");
+        String owner = intent.getStringExtra("owner");
+        String location = intent.getStringExtra("location");
         String description = intent.getStringExtra("description");
 
         eventBoardSingleton= ItemBoardSingleton.getInstance();
 
         nameView = findViewById(R.id.Name);
-        ownerView= findViewById(R.id.itemOwner);
+        ownerView = findViewById(R.id.itemOwner);
         dateView = findViewById(R.id.Date);
         priceView = findViewById(R.id.priceView);
         locationView = findViewById(R.id.LocationView);
         descriptionView = findViewById(R.id.Description);
         imageView = findViewById(R.id.Image);
 
-        calendar1 = Calendar.getInstance();
-        calendar2 = Calendar.getInstance();
-        calendar1.setTimeInMillis(startTime);
-        calendar2.setTimeInMillis(endTime);
-
-
-        df =  new SimpleDateFormat("HH:mm");
-
         Picasso.get().load(image).into(imageView);
         nameView.setText(name);
         dateView.setText("Date: "+date);
-        ownerView.setText("Held By: "+heldBy);
-        priceView.setText("Rs. "+df.format(calendar1.getTime())+" - "+df.format(calendar2.getTime()));
-        locationView.setText(venue);
+        ownerView.setText("Posted by : " + owner);
+        priceView.setText("Price: Rs. "+ price);
+        locationView.setText(location);
         descriptionView.setText(description);
+    }
+
+    public void buyItem(View view){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if (user.status.equals("Unverified")){
+                    Toast.makeText(ItemPageActivity.this, "You are not verified. Kindly verify your student status.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    startActivity(new Intent(ItemPageActivity.this, CheckoutActivity.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
 

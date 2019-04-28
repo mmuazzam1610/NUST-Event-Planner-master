@@ -31,28 +31,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/userimage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_menu_send"
-                android:padding="5dp"/>
             <TextView
-                android:id="@+id/usertext"
+                android:id="@+id/itemtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:textColor="@android:color/black"
-                android:text="User"
-                android:textStyle="bold"
-                android:padding="5dp"/>
+                android:text="Item"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
         </LinearLayout>
 
     <TextView
-        android:id="@+id/itemtext"
+        android:id="@+id/usertext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="Item Text"
+        android:text="User"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
         <TextView

@@ -81,10 +81,10 @@ public class AndroidDataAdapter extends Adapter<AndroidDataAdapter.ViewHolder> {
         holder.bookmark.setImageResource(R.drawable.star); //remove
         holder.bookmark.setTag(R.drawable.star); //remove
 
-        holder.userImage.setImageResource(R.drawable.star);
         holder.itemText.setText(arrayList.get(i).name);
-        holder.locationText.setText("Location: "+arrayList.get(i).location);
-        holder.userText.setText(arrayList.get(i).owner);
+        holder.locationText.setText("Location: " + arrayList.get(i).location);
+        holder.userText.setText("Posted by: " + arrayList.get(i).owner);
+        holder.priceText.setText("Price: Rs. " + arrayList.get(i).price);
         //Log.d("getadapternames","1");
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +113,7 @@ public class AndroidDataAdapter extends Adapter<AndroidDataAdapter.ViewHolder> {
                 intent.putExtra("location",arrayList.get(position).location);
                 intent.putExtra("description",arrayList.get(position).description);
                 intent.putExtra("owner",arrayList.get(position).owner);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);
             }
         });
@@ -144,7 +145,6 @@ public class AndroidDataAdapter extends Adapter<AndroidDataAdapter.ViewHolder> {
             userText = (TextView) v.findViewById(R.id.usertext);
 
             imageView = (ImageView) v.findViewById(R.id.imagePanel);
-            userImage =(ImageView)v.findViewById(R.id.userimage);
             bookmark =(ImageView)v.findViewById(R.id.bookmark);
         }
     }

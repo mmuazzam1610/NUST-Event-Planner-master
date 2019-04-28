@@ -1,9 +1,13 @@
 package com.example.nbamir.sda1.UserAccounts;
 
 public class User {
-    String email;
-    String name;
-    String status;
+    public String email;
+    public String name;
+    public String status;
+
+    User(){
+
+    }
 
     User(String email, String name, String status){
         this.email = email;

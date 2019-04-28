@@ -12,17 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserAccounts.SignupActivity"></activity>
-        <activity android:name=".UserAccounts.LoginActivity" />
-        <activity android:name=".NavigationDrawer.NavigationDrawer" />
-        <activity android:name=".BookmarksActivity" />
-        <activity android:name=".ItemBoard.EventBoardActivity">
+        <activity android:name=".ProofActivity"></activity>
+        <activity android:name=".CheckoutActivity" />
+        <activity android:name=".UserAccounts.SignupActivity" />
+        <activity android:name=".UserAccounts.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NavigationDrawer.NavigationDrawer" />
+        <activity android:name=".BookmarksActivity" />
+        <activity android:name=".ItemBoard.EventBoardActivity"/>
         <activity android:name=".EventMaker.AddItemActivity" />
         <activity android:name=".EventMaker.ItemPageActivity" />
     </application>

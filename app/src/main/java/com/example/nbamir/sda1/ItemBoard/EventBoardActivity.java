@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.nbamir.sda1.Database.Database;
+import com.example.nbamir.sda1.EventMaker.AddItemActivity;
 import com.example.nbamir.sda1.EventMaker.Item;
 import com.example.nbamir.sda1.NavigationDrawer.NavigationDrawer;
 import com.example.nbamir.sda1.R;
@@ -74,18 +76,18 @@ public class EventBoardActivity extends NavigationDrawer {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog1.show();
+                startActivity(new Intent(EventBoardActivity.this, AddItemActivity.class));
             }
         });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_event_board);
         Database db = new Database();
-        mDatabase=db.getDatabase();
+        mDatabase = db.getDatabase();
 
         eventBoardSingleton = ItemBoardSingleton.getInstance();
         eventList=eventBoardSingleton.getEventList();
 
-        context=getApplicationContext();
+        context = getApplicationContext();
         getEvents(mDatabase);
 
         categoryFilter = new CompositeFilter();
@@ -313,7 +315,39 @@ public class EventBoardActivity extends NavigationDrawer {
 
     private void getEvents(DatabaseReference mDatabase){
         eventList.clear();
-        mDatabase.child("Events").addChildEventListener(new ChildEventListener() {
+        mDatabase.child("Items").child("Laptop or PC").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Item event = dataSnapshot.getValue(Item.class);
+                Log.d("1", "getlist:" + event.location + event.image);
+                eventList.add(event);
+                eventBoardSingleton.initEventPanels(context,mRecyclerView,eventList);
+                resultsView.setText(eventList.size()+" Results");
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Items").child("Books").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Item event = dataSnapshot.getValue(Item.class);
@@ -349,12 +383,10 @@ public class EventBoardActivity extends NavigationDrawer {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             Log.d("UserFound",""+currentUser);
-        }
-        else{
-            Log.d("NoUserFound",""+currentUser);
         }
     }
 }

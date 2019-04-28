@@ -46,18 +46,14 @@ public class AddItemActivity extends NavigationDrawer {
     int i=1;
     private DatabaseReference myRef;
     private FirebaseAuth mAuth;
+
     //Firebase
+
     FirebaseStorage storage;
     StorageReference storageReference;
     String uid,poster;
     String user;
     String name;
-
-    // Calendars
-    private Calendar calendarFrom;
-    private  Calendar calendarTo;
-    private int mill;
-
 
     // date vars
     private int mYear;
@@ -70,11 +66,11 @@ public class AddItemActivity extends NavigationDrawer {
     private TextView itemName;
     private TextView priceView;
     private TextView itemDesc;
-    private CalendarView calendarView;
 
     String selectedDate,imageid,imagelink;
 
     Database db;
+    Calendar calendar;
 
     private Button btnChoose, btnUpload;
     private ImageView uploadImage;
@@ -97,6 +93,7 @@ public class AddItemActivity extends NavigationDrawer {
         itemName = (TextView) findViewById(R.id.itemName);
         itemDesc = (TextView) findViewById(R.id.itemDesc);
         locationView = (TextView) findViewById(R.id.itemLocation);
+        priceView = findViewById(R.id.itemPrice);
 
         // ...
         // Initialize Firebase Auth
@@ -112,46 +109,11 @@ public class AddItemActivity extends NavigationDrawer {
         db = new Database();
         myRef=db.getDatabase();
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("datasnapshot",""+dataSnapshot);
-
-                for(DataSnapshot datas: dataSnapshot.getChildren()){
-
-                    String child =datas.getKey();
-                    Log.d("children",""+child);
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(child).child(uid);
-                    ref.addValueEventListener(new ValueEventListener() {
-
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.hasChild("type")){
-                                Log.d("typevalue",""+dataSnapshot.child("type").getValue().toString());
-                                user=dataSnapshot.child("type").getValue().toString();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
         //Initialize Views
         btnChoose = (Button) findViewById(R.id.chooseImage);
-        btnUpload = (Button) findViewById(R.id.uploadImage);
         uploadImage = (ImageView) findViewById(R.id.imageView2);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
@@ -161,40 +123,7 @@ public class AddItemActivity extends NavigationDrawer {
             }
         });
 
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadImage();
-            }
-        });
-
-        // Calendar
-        calendarFrom = Calendar.getInstance();
-        calendarTo = Calendar.getInstance();
-
-        // Getting Widget By ID
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
-
-        // Listener for Date - CALENDAR
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year,
-                                            int month, int dayOfMonth) {
-                mYear = year;
-                mMonth = month;
-                mDay = dayOfMonth;
-                calendarFrom.set(year, month, dayOfMonth);
-
-                selectedDate = new StringBuilder().append(mMonth + 1)
-                        .append("-").append(mDay).append("-").append(mYear)
-                        .append(" ").toString();
-
-
-                Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
-            }
-        });
-
-
+        calendar = Calendar.getInstance();
     }
 
     private void chooseImage() {
@@ -214,6 +143,7 @@ public class AddItemActivity extends NavigationDrawer {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 uploadImage.setImageBitmap(bitmap);
+                uploadImage.setMaxHeight(bitmap.getHeight());
             }
             catch (IOException e)
             {
@@ -222,8 +152,8 @@ public class AddItemActivity extends NavigationDrawer {
         }
     }
 
-    private void uploadImage() {
 
+    public void addEvent(View view) {
         if(filePath != null)
         {
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -246,6 +176,32 @@ public class AddItemActivity extends NavigationDrawer {
                             download_url = urlTask.getResult();
                             imagelink = String.valueOf(download_url);
                             Log.d("imagelink",imagelink);
+
+                            // Getting Values
+                            String category = catSpinner.getSelectedItem().toString();
+                            String location = locationView.getText().toString();
+                            String desc = itemDesc.getText().toString();
+                            String name = itemName.getText().toString();
+                            String price = priceView.getText().toString();
+
+                            mYear = calendar.get(Calendar.YEAR);
+                            mMonth = calendar.get(Calendar.MONTH) + 1;
+                            mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                            selectedDate = mDay + ":" + mMonth + ":" + mYear;
+
+                            Item item = new Item();
+
+                            item.setCategory(category);
+                            item.setDescription(desc);
+                            item.setName(name);
+                            item.setLocation(location);
+                            item.setImage(imagelink);
+                            item.setUid(uid);
+                            item.setPrice(price);
+                            item.setDate(selectedDate);
+                            item.setOwner(poster);
+                            db.addItem(item,myRef.child("Items").child(category));
+                            finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -266,31 +222,6 @@ public class AddItemActivity extends NavigationDrawer {
         }
     }
 
-    public void addEvent(View view) {
-        // Getting Values
-        String category = catSpinner.getSelectedItem().toString();
-        String location = locationView.getText().toString();
-        String desc = itemDesc.getText().toString();
-        String name = itemName.getText().toString();
-        String price = priceView.getText().toString();
-        long startTime = calendarFrom.getTimeInMillis();
-        long endTime = calendarTo.getTimeInMillis();
-
-        Item clonedEvent = (Item) itemsCache.getItem(category);
-
-        clonedEvent.setCategory(category);
-        clonedEvent.setDescription(desc);
-        clonedEvent.setName(name);
-        clonedEvent.setLocation(location);
-        clonedEvent.setImage(imagelink);
-        clonedEvent.setUid(uid);
-        clonedEvent.setPrice(price);
-        clonedEvent.setDate(selectedDate);
-        clonedEvent.setOwner(poster);
-        db.pendingEvent(clonedEvent,myRef,uid,user);
-        this.finish();
-    }
-
     public void setCategorySpinner() {
         catSpinner = (Spinner) findViewById(R.id.categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -302,22 +233,18 @@ public class AddItemActivity extends NavigationDrawer {
         catSpinner.setAdapter(adapter);
     }
 
-    public void getUserType(int uid){
-
-
-    }
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             uid = currentUser.getUid();
             String email = currentUser.getEmail();
             name = currentUser.getDisplayName();
             Log.d("UserFound"+uid+email+name,""+currentUser);
-            Toast.makeText(this,""+uid+email+name,Toast.LENGTH_LONG);
         }
         else{
             Log.d("NoUserFound",""+currentUser);

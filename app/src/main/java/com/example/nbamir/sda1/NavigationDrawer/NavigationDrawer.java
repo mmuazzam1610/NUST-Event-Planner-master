@@ -12,7 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.nbamir.sda1.ItemBoard.EventBoardActivity;
+import com.example.nbamir.sda1.ProofActivity;
 import com.example.nbamir.sda1.R;
+import com.example.nbamir.sda1.UserAccounts.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationDrawer extends AppCompatActivity
@@ -67,8 +69,12 @@ public class NavigationDrawer extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             FirebaseAuth.getInstance().signOut();
-            /*Intent intent = new Intent(this,SignInActivity.class);
-            this.startActivity(intent);*/
+            Intent intent = new Intent(this, LoginActivity.class);
+            this.startActivity(intent);
+            this.finish();
+        }
+        else if (id == R.id.action_verify) {
+            startActivity(new Intent(NavigationDrawer.this, ProofActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

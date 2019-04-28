@@ -148,13 +148,10 @@ class itemsCache {
 
     public static void loadCache() {
         Item item = new Item();
-        item.setCategory("Notes");
+        item.setCategory("Book");
         itemMap.put(item.getCategory(), item);
         Item item1 = new Item();
-        item1.setCategory("Books");
+        item1.setCategory("Laptop or PC");
         itemMap.put(item1.getCategory(), item1);
-        Item item2 = new Item();
-        item2.setCategory("Laptop/PC");
-        itemMap.put(item2.getCategory(), item2);
     }
 }

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".EventMaker.AddItemActivity">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -79,29 +78,17 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="10dp"
-                />
-
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/chooseImage"
                     android:background="@drawable/transparent_bg_bordered_button"
@@ -115,23 +102,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="8dp"
                     android:text="Choose Image"
-                    android:textStyle="bold"
-                    />
-                <Button
-                    android:id="@+id/uploadImage"
-                    android:background="@drawable/transparent_bg_bordered_button"
-                    android:textColor="@color/colorAccent"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="Upload Image"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
             </LinearLayout>
 
 

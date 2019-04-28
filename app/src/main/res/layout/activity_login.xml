@@ -79,6 +79,7 @@ tools:context=".UserAccounts.LoginActivity">
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
+        android:onClick="signUpUser"
         android:text="No account yet? Create one"
         android:textSize="16dip" />
 

@@ -25,10 +25,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null){
+            startActivity(new Intent(LoginActivity.this, EventBoardActivity.class));
+        }
     }
 
     public void loginUser(View view){
@@ -46,5 +51,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void signUpUser(View view){
+        startActivity(new Intent(LoginActivity.this, SignupActivity.class));
     }
 }

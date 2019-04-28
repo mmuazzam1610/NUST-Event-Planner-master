@@ -15,22 +15,7 @@ public class Database {
         return FirebaseDatabase.getInstance().getReference();
     }
 
-    public void addEvent(Item item, DatabaseReference databaseReference){
+    public void addItem(Item item, DatabaseReference databaseReference){
         databaseReference.push().setValue(item);
     }
-
-    /**
-     * @param item
-     * @param databaseReference
-     * @param uid
-     * @param user
-     */
-    public void pendingEvent(Item item, DatabaseReference databaseReference, String uid, String user){
-        this.item = item;
-        this.databaseReference = databaseReference;
-        this.uid = uid;
-        this.user = user;
-        databaseReference.child("Pending Events").child(user).child(uid).push().setValue(item);
-    }
-
 }
