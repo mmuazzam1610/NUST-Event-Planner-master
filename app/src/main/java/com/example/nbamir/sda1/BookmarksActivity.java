@@ -10,9 +10,8 @@ import android.widget.FrameLayout;
 
 import com.example.nbamir.sda1.Accounts.SignInActivity;
 import com.example.nbamir.sda1.Database.Database;
-import com.example.nbamir.sda1.EventBoard.EventBoardSingleton;
-import com.example.nbamir.sda1.EventMaker.Event;
 import com.example.nbamir.sda1.EventMaker.Item;
+import com.example.nbamir.sda1.ItemBoard.ItemBoardSingleton;
 import com.example.nbamir.sda1.NavigationDrawer.NavigationDrawer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +25,7 @@ public class BookmarksActivity extends NavigationDrawer {
     ArrayList<Item> itemList;
     DatabaseReference mDatabase;
     RecyclerView mRecyclerView;
-    EventBoardSingleton eventBoardSingleton;
+    ItemBoardSingleton itemBoardSingleton;
     Context context;
 
     private FirebaseAuth mAuth;
@@ -44,11 +43,11 @@ public class BookmarksActivity extends NavigationDrawer {
         Database db = new Database();
         mDatabase = db.getDatabase();
 
-        eventBoardSingleton = EventBoardSingleton.getInstance();
-        itemList=eventBoardSingleton.getEventList();
+        itemBoardSingleton = ItemBoardSingleton.getInstance();
+        itemList=itemBoardSingleton.getEventList();
 
         context=getApplicationContext();
-        eventBoardSingleton.initEventPanels(getApplicationContext(),mRecyclerView,eventList);
+        itemBoardSingleton.initEventPanels(getApplicationContext(),mRecyclerView,itemList);
     }
     @Override
     public void onStart() {

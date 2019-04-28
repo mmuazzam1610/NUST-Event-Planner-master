@@ -1,24 +1,18 @@
 package com.example.nbamir.sda1.EventMaker;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.nbamir.sda1.Accounts.SignInActivity;
-import com.example.nbamir.sda1.Database.Database;
-import com.example.nbamir.sda1.EventBoard.EventBoardSingleton;
+import com.example.nbamir.sda1.ItemBoard.ItemBoardSingleton;
 import com.example.nbamir.sda1.NavigationDrawer.NavigationDrawer;
 import com.example.nbamir.sda1.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -34,7 +28,7 @@ public class ItemPageActivity extends NavigationDrawer {
 
     Calendar calendar1,calendar2;
     DateFormat df;
-    EventBoardSingleton eventBoardSingleton;
+    ItemBoardSingleton eventBoardSingleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +49,7 @@ public class ItemPageActivity extends NavigationDrawer {
         String venue = intent.getStringExtra("venue");
         String description = intent.getStringExtra("description");
 
-        eventBoardSingleton= EventBoardSingleton.getInstance();
+        eventBoardSingleton= ItemBoardSingleton.getInstance();
 
         nameView = findViewById(R.id.Name);
         ownerView= findViewById(R.id.itemOwner);

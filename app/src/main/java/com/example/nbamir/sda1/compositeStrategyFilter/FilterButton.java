@@ -1,19 +1,18 @@
 package com.example.nbamir.sda1.compositeStrategyFilter;
 
-
-import com.example.nbamir.sda1.EventMaker.Event;
+import com.example.nbamir.sda1.EventMaker.Item;
 
 import java.util.ArrayList;
 
 public class FilterButton {
     private FilterStrategy filter;
-    private  ArrayList<Event> filteredList;
+    private  ArrayList<Item> filteredList;
 
     public FilterButton(FilterStrategy filter){
         this.filter = filter;
     }
 
-    public ArrayList<Event> executeStrategy(ArrayList<Event> eventList){
+    public ArrayList<Item> executeStrategy(ArrayList<Item> eventList){
         if(filteredList!=null){
             filteredList.clear();
 

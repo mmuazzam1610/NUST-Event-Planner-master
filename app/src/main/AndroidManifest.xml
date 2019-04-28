@@ -21,7 +21,7 @@
         <activity android:name=".NavigationDrawer.NavigationDrawer" />
         <activity android:name=".TemplatePattern.RequestedEventsActivity" />
         <activity android:name=".BookmarksActivity" />
-        <activity android:name=".EventBoard.EventBoardActivity" >
+        <activity android:name=".ItemBoard.EventBoardActivity" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -29,8 +29,6 @@
         </intent-filter>
         </activity>
         <activity android:name=".Accounts.SignUpActivity" />
-        <activity android:name=".EventMaker.AddEventActivity" />
-        <activity android:name=".EventMaker.EventPageActivity"></activity>
         <activity android:name=".EventMaker.AddItemActivity" />
         <activity android:name=".EventMaker.ItemPageActivity" />
     </application>

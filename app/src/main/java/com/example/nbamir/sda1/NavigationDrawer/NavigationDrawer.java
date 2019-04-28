@@ -8,18 +8,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.nbamir.sda1.Accounts.SignInActivity;
-import com.example.nbamir.sda1.BookmarksActivity;
-import com.example.nbamir.sda1.EventBoard.EventBoardActivity;
+import com.example.nbamir.sda1.ItemBoard.EventBoardActivity;
 import com.example.nbamir.sda1.R;
-import com.example.nbamir.sda1.TemplatePattern.RequestedEventsActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,13 +91,7 @@ public class NavigationDrawer extends AppCompatActivity
         }else if (id == R.id.nav_mark) {
 //            intent = new Intent(this, BookmarksActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            this.startActivity(intent);
-
-        } else if (id == R.id.nav_request) {
-            intent = new Intent(this, RequestedEventsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            this.startActivity(intent);
-
+//            this.startActivity(intent)
         }else if (id == R.id.nav_settings) {
 //            intent = new Intent(this, UserSettingsActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -1,13 +1,13 @@
 package com.example.nbamir.sda1.compositeStrategyFilter;
 
-import com.example.nbamir.sda1.EventMaker.Event;
+import com.example.nbamir.sda1.EventMaker.Item;
 
 import java.util.ArrayList;
 
 public abstract class FilterStrategy {
 
-    ArrayList<Event> filteredList = new ArrayList<Event>();
+    ArrayList<Item> filteredList = new ArrayList<Item>();
 
-    public abstract ArrayList<Event> filter(ArrayList<Event> eventList);
+    public abstract ArrayList<Item> filter(ArrayList<Item> eventList);
 
 }

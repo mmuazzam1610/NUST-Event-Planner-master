@@ -1,22 +1,22 @@
 package com.example.nbamir.sda1.compositeStrategyFilter;
 
-import com.example.nbamir.sda1.EventMaker.Event;
+import com.example.nbamir.sda1.EventMaker.Item;
 
 import java.util.ArrayList;
 
 public class DayFilter extends FilterStrategy {
 
     @Override
-    public ArrayList<Event> filter(ArrayList<Event> eventList) {
+    public ArrayList<Item> filter(ArrayList<Item> eventList) {
         if(filteredList!=null){
             filteredList.clear();
 
         }
-        for(Event e:eventList){
+        /*for(Item e:eventList){
 //            if(e.date==Calendar.getInstance().getTime()){
 //                filteredList.add(e);
 //            }
-        }
+        }*/
         return filteredList;
     }
 }

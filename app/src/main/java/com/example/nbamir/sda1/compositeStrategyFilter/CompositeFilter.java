@@ -2,7 +2,7 @@ package com.example.nbamir.sda1.compositeStrategyFilter;
 
 import android.util.Log;
 
-import com.example.nbamir.sda1.EventMaker.Event;
+import com.example.nbamir.sda1.EventMaker.Item;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -11,15 +11,12 @@ import java.util.Set;
 public class CompositeFilter extends FilterStrategy {
 
     public ArrayList<FilterStrategy> filterList = new ArrayList<FilterStrategy>();
-    private ArrayList<Event> filteredtemp = new ArrayList<Event>();
-
-
+    private ArrayList<Item> filteredtemp = new ArrayList<Item>();
 
     @Override
-    public ArrayList<Event> filter(ArrayList<Event> eventList) {
+    public ArrayList<Item> filter(ArrayList<Item> eventList) {
         if(filteredList!=null){
             filteredList.clear();
-
         }
         // TODO Auto-generated method stub
         if(filterList.size()==0){
@@ -40,13 +37,13 @@ public class CompositeFilter extends FilterStrategy {
             filteredtemp=fs.filter(eventList);
             Log.d("filteredList","filteredtemp"+filteredtemp.toString());
 
-            for(Event e:filteredtemp){
+            for(Item e:filteredtemp){
                 filteredList.add(e);
 
             }
         }
         //remove duplicates
-        Set<Event> s = new LinkedHashSet<>(filteredList);
+        Set<Item> s = new LinkedHashSet<>(filteredList);
         filteredList.clear();
         filteredList.addAll(s);
         //sort
