@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UserAccounts.SignupActivity"></activity>
+        <activity android:name=".UserAccounts.LoginActivity" />
         <activity android:name=".NavigationDrawer.NavigationDrawer" />
         <activity android:name=".BookmarksActivity" />
         <activity android:name=".ItemBoard.EventBoardActivity">
