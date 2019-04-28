@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.nbamir.sda1.Accounts.SignInActivity;
 import com.example.nbamir.sda1.ItemBoard.EventBoardActivity;
 import com.example.nbamir.sda1.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,8 +67,8 @@ public class NavigationDrawer extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(this,SignInActivity.class);
-            this.startActivity(intent);
+            /*Intent intent = new Intent(this,SignInActivity.class);
+            this.startActivity(intent);*/
         }
 
         return super.onOptionsItemSelected(item);

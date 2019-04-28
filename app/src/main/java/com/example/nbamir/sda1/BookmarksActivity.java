@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.FrameLayout;
 
-import com.example.nbamir.sda1.Accounts.SignInActivity;
 import com.example.nbamir.sda1.Database.Database;
 import com.example.nbamir.sda1.EventMaker.Item;
 import com.example.nbamir.sda1.ItemBoard.ItemBoardSingleton;

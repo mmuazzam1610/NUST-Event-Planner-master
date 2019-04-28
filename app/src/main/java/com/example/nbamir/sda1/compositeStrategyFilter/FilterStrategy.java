@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class FilterStrategy {
 
-    ArrayList<Item> filteredList = new ArrayList<Item>();
+    ArrayList filteredList = new ArrayList<Item>();
 
     public abstract ArrayList<Item> filter(ArrayList<Item> eventList);
 
